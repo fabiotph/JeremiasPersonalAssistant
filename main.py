@@ -1,19 +1,7 @@
-import speech_recognition as sr
-LANGUAGE = 'pt-br'
-
-
-def listen_microphone():
-    microphone = sr.Recognizer()
-    with sr.Microphone() as source:
-        microphone.adjust_for_ambient_noise(source=source)
-        audio = microphone.listen(source)
-
-    try:
-        phrase = microphone.recognize_google(audio, language=LANGUAGE)
-        print(phrase)
-
-    except sr.UnknownValueError:
-        print("Não entendi.")
-
-
-listen_microphone()
+from src.microphone import Microphone
+from src.speaker import Speaker
+while(True):
+    mph = Microphone(language='pt-br')
+    response = mph.listen()
+    spk = Speaker(language='pt-br')
+    spk.play(value=response)
